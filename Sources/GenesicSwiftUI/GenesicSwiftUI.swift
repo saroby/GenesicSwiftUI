@@ -30,6 +30,12 @@ public extension View {
     }
 }
 
+public extension View {
+    @inlinable nonisolated public func frame(size: CGFloat, alignment: Alignment = .center) -> some View {
+        return self.frame(width: size, height: size, alignment: alignment)
+    }
+}
+
 public extension HStack {
     public init<Spacing: RawRepresentable>(
         alignment: VerticalAlignment = .center,
