@@ -13,8 +13,10 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "GenesicSwiftUI"),
-
+            name: "GenesicSwiftUI",
+            resources: [
+                .process("Resources"),
+            ]),
     ],
     swiftLanguageModes: [.v6]
 )
