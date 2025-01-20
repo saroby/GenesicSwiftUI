@@ -5,7 +5,7 @@ import SwiftUI
 public struct ImagePicker: UIViewControllerRepresentable {
     var onImagePicked: (UIImage?) -> Void
 
-    func makeUIViewController(context: Context) -> PHPickerViewController {
+    public func makeUIViewController(context: Context) -> PHPickerViewController {
         var configuration = PHPickerConfiguration()
         configuration.filter = .images // 이미지만 선택 가능
         configuration.selectionLimit = 1 // 한 번에 하나의 이미지 선택
@@ -14,28 +14,30 @@ public struct ImagePicker: UIViewControllerRepresentable {
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
+    public func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
 
-    func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator {
         Coordinator(onImagePicked: onImagePicked)
     }
 
-    class Coordinator: NSObject, PHPickerViewControllerDelegate {
-        var onImagePicked: (UIImage?) -> Void
+    public class Coordinator: NSObject, PHPickerViewControllerDelegate {
+        var onImagePicked: @MainActor (UIImage?) -> Void
 
-        init(onImagePicked: @escaping (UIImage?) -> Void) {
+        init(onImagePicked: @escaping @MainActor (UIImage?) -> Void) {
             self.onImagePicked = onImagePicked
         }
 
-        func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
             picker.dismiss(animated: true)
             guard let provider = results.first?.itemProvider, provider.canLoadObject(ofClass: UIImage.self) else {
                 onImagePicked(nil)
                 return
             }
-            provider.loadObject(ofClass: UIImage.self) { image, _ in
-                DispatchQueue.main.async {
-                    self.onImagePicked(image as? UIImage)
+            provider.loadObject(ofClass: UIImage.self) { obj, _ in
+                guard let image = obj as? UIImage else { return }
+                
+                Task {
+                    await self.onImagePicked(image)
                 }
             }
         }
@@ -61,9 +63,9 @@ struct ImageURLPicker: UIViewControllerRepresentable {
     }
 
     class Coordinator: NSObject, PHPickerViewControllerDelegate {
-        var onImagePicked: (URL?) -> Void
+        var onImagePicked: @MainActor (URL?) -> Void
 
-        init(onImagePicked: @escaping (URL?) -> Void) {
+        init(onImagePicked: @escaping @MainActor (URL?) -> Void) {
             self.onImagePicked = onImagePicked
         }
 
@@ -76,7 +78,9 @@ struct ImageURLPicker: UIViewControllerRepresentable {
             
             provider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, _ in
                 guard let url else {
-                    self.onImagePicked(nil)
+                    Task {
+                        await self.onImagePicked(nil)
+                    }
                     return
                 }
                 
@@ -87,7 +91,9 @@ struct ImageURLPicker: UIViewControllerRepresentable {
                 } catch {
                     print("Failed to copy file: \(error.localizedDescription)")
                 }
-                self.onImagePicked(destinationURL)
+                Task {
+                    await self.onImagePicked(destinationURL)
+                }
             }
         }
     }
