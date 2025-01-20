@@ -9,12 +9,22 @@ let package = Package(
     products: [
         .library(
             name: "GenesicSwiftUI",
-            targets: ["GenesicSwiftUI"]),
+            targets: ["GenesicSwiftUI"]
+        ),
     ],
     targets: [
         .target(
-            name: "GenesicSwiftUI"),
-
+            name: "GenesicSwiftUI"
+//            ,
+//            resources: [
+//                .process("Resources/Assets.xcassets"),
+//            ]
+        ),
+        .testTarget(
+            name: "GenesicSwiftUITest",
+            dependencies: ["GenesicSwiftUI"],
+            path: "Tests/GenesicSwiftUITest"
+        ),
     ],
     swiftLanguageModes: [.v6]
 )
