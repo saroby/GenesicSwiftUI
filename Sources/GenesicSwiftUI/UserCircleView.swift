@@ -15,6 +15,15 @@ public struct UserCircleView: View {
             case .large: return 64
             }
         }
+        
+        var imagePadding: CGFloat {
+            switch self {
+            case .xSmall: return 3
+            case .small: return 6
+            case .medium: return 9
+            case .large: return 12
+            }
+        }
     }
     
     let size: Size
@@ -36,7 +45,7 @@ public struct UserCircleView: View {
             Image(uiImage: placeholder)
                 .resizable()
                 .scaledToFit()
-                .padding()
+                .padding(size.imagePadding)
                 .frame(size: size.value)
                 .symbolRenderingMode(.hierarchical)
                 .background(Color.secondary)
@@ -44,12 +53,14 @@ public struct UserCircleView: View {
         .clipShape(.circle)
         .overlay {
             Circle()
-                .stroke(Color.primary, lineWidth: 1)
+                .strokeBorder(Color.secondary, lineWidth: 1)
         }
     }
 }
 
 #Preview {
     UserCircleView(size: .large, imageURL: URL(string: "https://picsum.photos/200"))
-    UserCircleView(size: .large, imageURL: nil)
+    UserCircleView(size: .medium, imageURL: URL(string: "https://picsum.photos/200"))
+    UserCircleView(size: .small, imageURL: URL(string: "https://picsum.photos/200"))
+    UserCircleView(size: .xSmall, imageURL: URL(string: "https://picsum.photos/200"))
 }
