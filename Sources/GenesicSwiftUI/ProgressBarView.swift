@@ -67,15 +67,14 @@ public struct ProgressBarView: View {
         }
     }
 
-    @ViewBuilder
-    private var backgroundShape: some Shape {
+    private var backgroundShape: AnyShape {
         switch style {
         case .linear:
-            Rectangle()
+            return AnyShape(Rectangle())
         case .rounded:
-            RoundedRectangle(cornerRadius: height / 2)
+            return AnyShape(RoundedRectangle(cornerRadius: height / 2))
         case .capsule:
-            Capsule()
+            return AnyShape(Capsule())
         }
     }
 }

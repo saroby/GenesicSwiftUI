@@ -54,7 +54,6 @@ public struct ListItemView: View {
                     trailingView(for: trailing)
                 }
             }
-            .padding()
             .background(Color(.systemBackground))
         }
         .buttonStyle(LabelButtonStyle())

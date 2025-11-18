@@ -120,17 +120,17 @@ public extension View {
 
                 Image(systemName: "message.fill")
                     .font(.system(size: 40))
-                    .foregroundColor(.green)
+                    .foregroundColor(.blue)
                     .badge(count: 12, color: .green)
 
                 Image(systemName: "envelope.fill")
                     .font(.system(size: 40))
-                    .foregroundColor(.orange)
+                    .foregroundColor(.blue)
                     .badge(count: 99, color: .orange)
 
                 Image(systemName: "cart.fill")
                     .font(.system(size: 40))
-                    .foregroundColor(.purple)
+                    .foregroundColor(.blue)
                     .badge(count: 156, color: .purple)
             }
         }

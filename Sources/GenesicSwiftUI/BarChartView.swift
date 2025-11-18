@@ -120,13 +120,13 @@ public struct BarChartData: Identifiable {
 
                 BarChartView(
                     data: [
-                        BarChartData(label: "Mon", value: 5.5, color: .cyan) { "\($0, specifier: "%.1f")h" },
-                        BarChartData(label: "Tue", value: 7.2, color: .cyan) { "\($0, specifier: "%.1f")h" },
-                        BarChartData(label: "Wed", value: 6.8, color: .cyan) { "\($0, specifier: "%.1f")h" },
-                        BarChartData(label: "Thu", value: 8.0, color: .cyan) { "\($0, specifier: "%.1f")h" },
-                        BarChartData(label: "Fri", value: 6.5, color: .cyan) { "\($0, specifier: "%.1f")h" },
-                        BarChartData(label: "Sat", value: 3.2, color: .cyan) { "\($0, specifier: "%.1f")h" },
-                        BarChartData(label: "Sun", value: 2.8, color: .cyan) { "\($0, specifier: "%.1f")h" }
+                        BarChartData(label: "Mon", value: 5.5, color: .cyan) { "\($0, default: "%.1f")h" },
+                        BarChartData(label: "Tue", value: 7.2, color: .cyan) { "\($0, default: "%.1f")h" },
+                        BarChartData(label: "Wed", value: 6.8, color: .cyan) { "\($0, default: "%.1f")h" },
+                        BarChartData(label: "Thu", value: 8.0, color: .cyan) { "\($0, default: "%.1f")h" },
+                        BarChartData(label: "Fri", value: 6.5, color: .cyan) { "\($0, default: "%.1f")h" },
+                        BarChartData(label: "Sat", value: 3.2, color: .cyan) { "\($0, default: "%.1f")h" },
+                        BarChartData(label: "Sun", value: 2.8, color: .cyan) { "\($0, default: "%.1f")h" }
                     ],
                     barColor: .cyan
                 )

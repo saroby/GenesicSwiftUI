@@ -81,28 +81,3 @@ public struct CountdownTimer: View {
         }
     }
 }
-
-#Preview {
-    VStack(spacing: 40) {
-        VStack(spacing: 16) {
-            Text("Sale Ends In")
-                .font(.title2)
-                .fontWeight(.bold)
-
-            CountdownTimer(
-                targetDate: Date().addingTimeInterval(3600 * 24 * 3 + 3600 * 5 + 60 * 30 + 45)
-            )
-        }
-
-        VStack(spacing: 16) {
-            Text("Event Starts In")
-                .font(.title2)
-                .fontWeight(.bold)
-
-            CountdownTimer(
-                targetDate: Date().addingTimeInterval(3600 * 24 * 7)
-            )
-        }
-    }
-    .padding()
-}
